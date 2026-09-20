@@ -1,151 +1,200 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="guerilla">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SCHWIMMEN AM MAIN — Macht Frankfurt wieder schwimmfähig</title>
-<meta name="description" content="Bürgerinitiative: Wir projizieren die alten Frankfurter Flussbäder zurück an den Main. Unterschreibe. Kommentiere. Macht Frankfurt wieder schwimmen.">
-<meta property="og:title" content="SCHWIMMEN AM MAIN">
-<meta property="og:description" content="Frankfurt hatte 29 Flussbäder. Heute ein Verbotsschild von 1953. Holen wir den Main zurück.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Special+Elite&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Bürgerinitiative: Wir projizieren die alten Frankfurter Flussbäder zurück an den Main. Unterschreibe. Kommentiere.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Special+Elite&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;600;800&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
+/* ============ THEME-VARIABLEN ============ */
 :root{
-  --ink:#0a0e0f; --paper:#f3ead6; --water:#12c9c0; --wave:#0aa79f;
-  --acid:#c6ff2e; --red:#ff3b30; --sepia:#8a6d3b; --sepia2:#d8c19a;
-  --white:#f7f5ef;
+  --bg:#0a0e0f; --panel:#10181a; --fg:#f7f5ef; --muted:#9fb0ad;
+  --accent:#c6ff2e; --accent2:#12c9c0; --line:#24312f; --danger:#ff3b30;
+  --fhead:"Anton",Impact,sans-serif; --fbody:"Barlow Condensed","Arial Narrow",sans-serif; --flabel:"Special Elite",monospace;
+  --radius:0px; --shadow:5px 5px 0 #000; --maxw:1120px; --fs:19px;
+  --rot:-1.5deg;               /* Rotation dekorativer Elemente */
+  --grain:.06; --tape:1;       /* Sichtbarkeit Körnung / Klebeband */
+  --headtransform:uppercase; --headls:.5px; --headweight:400;
+  --btnbg:var(--accent); --btnfg:#0a0e0f;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--ink);color:var(--white);
-  font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:19px;line-height:1.42;
-  overflow-x:hidden}
-/* körnung */
-body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.06;
+[data-theme="linux"]{
+  --bg:#0d1117; --panel:#161b22; --fg:#c9d1d9; --muted:#8b949e;
+  --accent:#3fb950; --accent2:#58a6ff; --line:#30363d; --danger:#f85149;
+  --fhead:"JetBrains Mono",monospace; --fbody:"JetBrains Mono",ui-monospace,monospace; --flabel:"JetBrains Mono",monospace;
+  --radius:6px; --shadow:0 0 0 1px #30363d; --fs:16px;
+  --rot:0deg; --grain:0; --tape:0; --headtransform:none; --headls:0px; --headweight:800;
+  --btnbg:transparent; --btnfg:#3fb950;
+}
+[data-theme="nax"]{
+  --bg:#f5efe1; --panel:#faf7f0; --fg:#23201d; --muted:#6b6359;
+  --accent:#6e1423; --accent2:#8a2433; --line:#c9bda3; --danger:#8a2433;
+  --fhead:"EB Garamond",Georgia,serif; --fbody:"EB Garamond",Georgia,serif; --flabel:"EB Garamond",Georgia,serif;
+  --radius:2px; --shadow:0 2px 10px rgba(0,0,0,.10); --fs:18px;
+  --rot:0deg; --grain:0; --tape:0; --headtransform:none; --headls:.2px; --headweight:600;
+  --btnbg:#6e1423; --btnfg:#f5efe1;
+}
+[data-theme="minimal"]{
+  --bg:#ffffff; --panel:#ffffff; --fg:#111111; --muted:#777;
+  --accent:#111111; --accent2:#444; --line:#111111; --danger:#111111;
+  --fhead:"Helvetica Neue",Helvetica,Arial,sans-serif; --fbody:"Helvetica Neue",Helvetica,Arial,sans-serif; --flabel:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --radius:0px; --shadow:none; --fs:16px;
+  --rot:0deg; --grain:0; --tape:0; --headtransform:none; --headls:.4px; --headweight:700;
+  --btnbg:#111; --btnfg:#fff;
+}
+/* ============ BASIS ============ */
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--fbody);font-size:var(--fs);line-height:1.45;overflow-x:hidden;transition:background .2s,color .2s}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:var(--grain);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-h1,h2,h3{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.92;letter-spacing:.5px;margin:0}
-a{color:var(--acid)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
-.mark{font-family:"Special Elite",monospace;text-transform:uppercase;letter-spacing:2px;font-size:12px;color:var(--acid)}
-section{padding:64px 0;position:relative;border-top:3px solid #1c2426}
-.tag{display:inline-block;background:var(--acid);color:var(--ink);font-family:"Special Elite",monospace;
-  text-transform:uppercase;font-size:12px;letter-spacing:2px;padding:4px 10px;transform:rotate(-1.5deg);margin-bottom:14px}
-.spray{color:var(--acid)} .redword{color:var(--red)} .waterword{color:var(--water)}
-.btn{display:inline-block;background:var(--acid);color:var(--ink);font-family:"Anton",sans-serif;
-  text-transform:uppercase;text-decoration:none;font-size:22px;letter-spacing:1px;padding:12px 22px;
-  transform:rotate(-1deg);box-shadow:5px 5px 0 #000;transition:transform .1s}
-.btn:hover{transform:rotate(-1deg) translate(-2px,-2px);box-shadow:7px 7px 0 #000}
-.btn.water{background:var(--water)}
-.tape{position:absolute;background:rgba(220,193,154,.5);width:120px;height:26px;transform:rotate(-6deg);
-  box-shadow:0 1px 2px rgba(0,0,0,.4);mix-blend-mode:screen}
-/* HERO */
-#hero{padding:0;min-height:96vh;display:flex;flex-direction:column;justify-content:center;
-  background:radial-gradient(120% 90% at 50% 10%, #0d1a1c 0%, #05090a 70%);position:relative;overflow:hidden}
-.waves{position:absolute;left:0;right:0;bottom:0;height:34vh;opacity:.5}
-#hero h1{font-size:clamp(56px,14vw,190px);color:var(--white);text-shadow:0 0 3px #000}
-#hero h1 .b{color:var(--water)}
-.krit{font-family:"Special Elite";color:var(--red);transform:rotate(-3deg);display:inline-block;
-  border:2px solid var(--red);padding:3px 9px;font-size:14px;letter-spacing:2px}
-.lead{font-size:clamp(20px,2.5vw,27px);max-width:760px;color:#dfe6e4}
-.big{font-size:clamp(26px,3.4vw,40px);font-family:"Archivo Black";line-height:1.12;text-transform:uppercase;letter-spacing:-.5px}
+h1,h2,h3{font-family:var(--fhead);font-weight:var(--headweight);text-transform:var(--headtransform);letter-spacing:var(--headls);line-height:1.02;margin:0}
+a{color:var(--accent)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.mark{font-family:var(--flabel);text-transform:uppercase;letter-spacing:2px;font-size:12px;color:var(--accent)}
+[data-theme="linux"] .mark::before{content:"// "} [data-theme="linux"] .mark{text-transform:none}
+section{padding:62px 0;border-top:1px solid var(--line);position:relative}
+.tag{display:inline-block;background:var(--accent);color:var(--btnfg);font-family:var(--flabel);text-transform:uppercase;font-size:12px;letter-spacing:2px;padding:4px 10px;transform:rotate(var(--rot));margin-bottom:14px}
+[data-theme="linux"] .tag{background:transparent;color:var(--accent);border:1px solid var(--accent);text-transform:none}
+[data-theme="linux"] .tag::before{content:"$ "}
+[data-theme="minimal"] .tag{background:none;color:var(--muted);padding:0;letter-spacing:3px;font-size:11px}
+[data-theme="nax"] .tag{background:none;color:var(--accent);padding:0;font-style:italic;letter-spacing:1px}
+.spray{color:var(--accent)} .redword{color:var(--danger)} .waterword{color:var(--accent2)}
+.btn{display:inline-block;background:var(--btnbg);color:var(--btnfg);font-family:var(--fhead);text-transform:var(--headtransform);text-decoration:none;font-size:20px;letter-spacing:.5px;padding:12px 22px;border:2px solid var(--btnbg);transform:rotate(calc(var(--rot)/2));box-shadow:var(--shadow);cursor:pointer;border-radius:var(--radius)}
+[data-theme="linux"] .btn{border-color:var(--accent);color:var(--accent);font-weight:800}
+[data-theme="linux"] .btn::before{content:"[ "} [data-theme="linux"] .btn::after{content:" ]"}
+.btn.alt{background:var(--accent2);border-color:var(--accent2);color:#04110f}
+[data-theme="nax"] .btn.alt{color:#fff} [data-theme="minimal"] .btn.alt{background:#fff;color:#111;border-color:#111}
+[data-theme="linux"] .btn.alt{background:transparent;color:var(--accent2);border-color:var(--accent2)}
+.big{font-size:clamp(24px,3.2vw,38px);font-family:var(--fhead);line-height:1.14;text-transform:var(--headtransform);letter-spacing:-.3px;font-weight:var(--headweight)}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:34px}
-.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 @media(max-width:820px){.cols,.cols3{grid-template-columns:1fr}}
-.card{background:#10181a;border:2px solid #24312f;padding:18px 20px}
-.card h3{color:var(--acid);font-size:23px;margin-bottom:6px}
-.num{font-family:"Anton";font-size:60px;color:var(--water);line-height:.8}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px 20px;border-radius:var(--radius)}
+[data-theme="guerilla"] .card{border-width:2px}
+.card h3{color:var(--accent);font-size:22px;margin-bottom:6px}
+.num{font-family:var(--fhead);font-size:56px;color:var(--accent2);line-height:.85;font-weight:var(--headweight)}
 ul.hit{list-style:none;padding:0;margin:10px 0}
-ul.hit li{padding:7px 0 7px 26px;border-bottom:1px dashed #2b3a38;position:relative}
-ul.hit li::before{content:"//";position:absolute;left:0;color:var(--acid);font-family:"Special Elite"}
-/* FOTO PLATES */
+ul.hit li{padding:7px 0 7px 26px;border-bottom:1px dashed var(--line);position:relative}
+ul.hit li::before{content:"//";position:absolute;left:0;color:var(--accent);font-family:var(--flabel)}
+[data-theme="nax"] ul.hit li::before{content:"—"} [data-theme="minimal"] ul.hit li::before{content:"·"}
+.hr{height:6px;background:var(--accent);width:170px;transform:rotate(calc(var(--rot)/2));margin:16px 0;box-shadow:var(--shadow)}
+[data-theme="nax"] .hr,[data-theme="minimal"] .hr,[data-theme="linux"] .hr{height:2px;box-shadow:none;width:120px}
+.scribble{font-family:var(--flabel);color:var(--accent);display:inline-block;transform:rotate(var(--rot))}
+[data-theme="nax"] .scribble,[data-theme="minimal"] .scribble,[data-theme="linux"] .scribble{transform:none}
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(7px);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 16px;flex-wrap:wrap}
+.brand{font-family:var(--fhead);font-size:15px;letter-spacing:1px;color:var(--fg);text-transform:var(--headtransform)}
+.themeswitch{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:3px}
+.themeswitch button{font-family:var(--flabel);font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:none;border:0;padding:5px 9px;cursor:pointer;border-radius:calc(var(--radius) - 1px)}
+.themeswitch button[aria-pressed="true"]{background:var(--accent);color:var(--btnfg)}
+.snav{display:flex;gap:12px;font-family:var(--flabel);font-size:11px;letter-spacing:1px;flex-wrap:wrap}
+.snav a{color:var(--muted);text-decoration:none}.snav a:hover{color:var(--accent)}
+@media(max-width:720px){.snav{display:none}}
+/* HERO */
+#hero{padding:96px 0 40px;min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 8%, color-mix(in srgb,var(--accent2) 12%,var(--bg)) 0%, var(--bg) 70%)}
+.waves{position:absolute;left:0;right:0;bottom:0;height:30vh;opacity:.4}
+#hero h1{font-size:clamp(52px,13vw,180px);color:var(--fg)}
+#hero h1 .b{color:var(--accent2)}
+.lead{font-size:clamp(19px,2.4vw,26px);max-width:780px;color:var(--fg);opacity:.92}
+.krit{font-family:var(--flabel);color:var(--danger);border:2px solid var(--danger);padding:2px 8px;font-size:14px;letter-spacing:1px;display:inline-block;transform:rotate(var(--rot))}
+[data-theme="nax"] .krit,[data-theme="minimal"] .krit,[data-theme="linux"] .krit{transform:none;border-width:1px}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+/* PLATES */
 .plates{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 @media(max-width:820px){.plates{grid-template-columns:1fr}}
-.plate{background:var(--paper);padding:12px 12px 10px;transform:rotate(var(--r,-1deg));
-  box-shadow:6px 8px 0 rgba(0,0,0,.45);color:#2a2418}
-.plate .img{aspect-ratio:4/3;background:linear-gradient(135deg,#c8ad7e,#8a6d3b);position:relative;overflow:hidden;border:1px solid #6b5327}
-.plate .img svg{position:absolute;inset:0;width:100%;height:100%}
-.plate .stamp{position:absolute;top:8px;right:8px;font-family:"Special Elite";font-size:10px;color:#3a2f14;
-  border:1px solid #6b5327;padding:2px 5px;transform:rotate(6deg);background:rgba(243,234,214,.7)}
-.plate .cap{font-family:"Special Elite";font-size:13px;margin-top:9px;color:#3a2f18}
-.plate .yr{font-family:"Anton";font-size:26px;color:#7a2e12}
-/* WALL RENDER */
-.wallbox{background:#05090a;border:2px solid #1c2426;padding:0;overflow:hidden}
+.plate{background:var(--panel);padding:10px;transform:rotate(var(--pr,0deg));box-shadow:var(--shadow);border:1px solid var(--line);border-radius:var(--radius)}
+[data-theme="guerilla"] .plate{background:#f3ead6;color:#2a2418;box-shadow:6px 8px 0 rgba(0,0,0,.45)}
+.plate img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;filter:sepia(.15) contrast(1.02);border:1px solid var(--line)}
+[data-theme="guerilla"] .plate img{filter:sepia(.35) contrast(1.05)}
+[data-theme="minimal"] .plate img{filter:grayscale(1) contrast(1.03)}
+.plate .yr{font-family:var(--fhead);font-size:24px;color:var(--danger);margin-top:8px}
+[data-theme="linux"] .plate .yr{color:var(--accent)} [data-theme="minimal"] .plate .yr{color:#111}
+.plate .cap{font-family:var(--flabel);font-size:13px;margin-top:2px;opacity:.85}
+.plate.text{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:220px;border:2px dashed var(--danger)}
+/* WALL */
+.wallbox{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#05090a}
 /* PETITION */
-#mit{background:linear-gradient(180deg,#07100f,#0a1414)}
-.form{background:#0d1a1a;border:3px solid var(--water);padding:22px;max-width:640px}
-.form input,.form textarea{width:100%;background:#03100f;border:2px solid #22403d;color:var(--white);
-  font-family:"Barlow Condensed";font-size:19px;padding:10px 12px;margin:6px 0}
+.form{background:var(--panel);border:2px solid var(--accent2);padding:22px;max-width:640px;border-radius:var(--radius)}
+[data-theme="minimal"] .form{border:1px solid #111}
+.form input,.form textarea{width:100%;background:color-mix(in srgb,var(--bg) 92%,#000);border:1px solid var(--line);color:var(--fg);font-family:var(--fbody);font-size:17px;padding:10px 12px;margin:6px 0;border-radius:var(--radius)}
+[data-theme="minimal"] .form input,[data-theme="minimal"] .form textarea{background:#fff;border-color:#111}
 .form textarea{min-height:80px;resize:vertical}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.counter{font-family:"Anton";font-size:64px;color:var(--acid);line-height:.9}
-.wall{margin-top:22px;max-height:380px;overflow:auto;border-top:2px dashed #22403d;padding-top:12px}
-.sig{border-left:3px solid var(--water);padding:8px 12px;margin:8px 0;background:#0b1615}
-.sig .who{font-family:"Special Elite";font-size:12px;color:var(--acid)}
-.mockchrome{background:#1b2224;border:1px solid #2b3a38;border-radius:8px 8px 0 0;padding:6px 10px;font-family:"Special Elite";font-size:11px;color:#9fb;display:flex;gap:6px;align-items:center}
-.dot{width:9px;height:9px;border-radius:50%;background:#3a4a48;display:inline-block}
-.qrbox{background:#fff;padding:14px;display:inline-block;box-shadow:6px 6px 0 #000;transform:rotate(1deg)}
-.qrbox img{display:block;width:190px;height:190px}
-.foot{padding:40px 0 70px;color:#7f8c8a;font-size:15px}
-.scribble{font-family:"Special Elite";color:var(--acid);transform:rotate(-2deg);display:inline-block}
-.hr-spray{height:8px;background:var(--acid);width:180px;transform:rotate(-1deg);margin:16px 0;box-shadow:3px 3px 0 #000}
-.nav{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(5,9,10,.86);backdrop-filter:blur(6px);
-  border-bottom:2px solid #1c2426;display:flex;gap:16px;justify-content:center;padding:9px;font-family:"Special Elite";font-size:12px;letter-spacing:1px;flex-wrap:wrap}
-.nav a{color:#cfe;text-decoration:none} .nav a:hover{color:var(--acid)}
+.counter{font-family:var(--fhead);font-size:58px;color:var(--accent);line-height:.9;font-weight:var(--headweight)}
+.status{font-family:var(--flabel);font-size:11px;padding:3px 8px;border:1px solid var(--line);border-radius:20px;color:var(--muted)}
+.status.live{color:#04110f;background:var(--accent2)}
+.wall{margin-top:20px;max-height:360px;overflow:auto;border-top:1px dashed var(--line);padding-top:12px}
+.sig{border-left:3px solid var(--accent2);padding:8px 12px;margin:8px 0;background:color-mix(in srgb,var(--bg) 90%,var(--accent2))}
+[data-theme="minimal"] .sig{background:#fafafa;border-left-color:#111}
+.sig .who{font-family:var(--flabel);font-size:12px;color:var(--accent)}
+.mockchrome{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius) var(--radius) 0 0;padding:6px 10px;font-family:var(--flabel);font-size:11px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line);display:inline-block}
+.qrbox{background:#fff;padding:12px;display:inline-block;box-shadow:var(--shadow);transform:rotate(calc(var(--rot)/-2));border-radius:var(--radius)}
+[data-theme="nax"] .qrbox,[data-theme="minimal"] .qrbox,[data-theme="linux"] .qrbox{transform:none}
+.qrbox img{display:block;width:180px;height:180px}
+.foot{padding:40px 0 80px;color:var(--muted);font-size:15px}
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <a href="#hero">01 Vision</a><a href="#aktion">02 Beamer</a><a href="#lage">03 Die Lage</a>
-  <a href="#fotos">04 Archiv</a><a href="#wand">05 Die Wand</a><a href="#mit">06 Mitmachen ✊</a>
-</nav>
+<div class="topbar">
+  <span class="brand">≋ Schwimmen am Main</span>
+  <div class="themeswitch" id="themeswitch" role="group" aria-label="Darstellung wählen">
+    <button data-t="guerilla" aria-pressed="true">Guerilla</button>
+    <button data-t="linux">Linux</button>
+    <button data-t="nax">NAX</button>
+    <button data-t="minimal">Minimal</button>
+  </div>
+  <nav class="snav">
+    <a href="#hero">01</a><a href="#aktion">02</a><a href="#lage">03</a><a href="#fotos">04</a><a href="#wand">05</a><a href="#mit">06 ✊</a>
+  </nav>
+</div>
 
-<!-- 01 VISION -->
+<!-- 01 VISION / HERO -->
 <header id="hero">
-  <svg class="waves" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="#0aa79f" fill-opacity="0.6" d="M0,160 C240,240 480,80 720,140 C960,200 1200,60 1440,150 L1440,320 L0,320 Z"><animate attributeName="d" dur="9s" repeatCount="indefinite" values="M0,160 C240,240 480,80 720,140 C960,200 1200,60 1440,150 L1440,320 L0,320 Z;M0,150 C240,90 480,220 720,150 C960,90 1200,210 1440,140 L1440,320 L0,320 Z;M0,160 C240,240 480,80 720,140 C960,200 1200,60 1440,150 L1440,320 L0,320 Z"/></path></svg>
-  <div class="wrap" style="position:relative;z-index:2;padding-top:70px">
-    <span class="mark">Bürgerinitiative // Frankfurt am Main // Deutschherrnufer</span>
+  <svg class="waves" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="currentColor" style="color:var(--accent2)" fill-opacity="0.55" d="M0,160 C240,240 480,80 720,140 C960,200 1200,60 1440,150 L1440,320 L0,320 Z"><animate attributeName="d" dur="9s" repeatCount="indefinite" values="M0,160 C240,240 480,80 720,140 C960,200 1200,60 1440,150 L1440,320 L0,320 Z;M0,150 C240,90 480,220 720,150 C960,90 1200,210 1440,140 L1440,320 L0,320 Z;M0,160 C240,240 480,80 720,140 C960,200 1200,60 1440,150 L1440,320 L0,320 Z"/></path></svg>
+  <div class="wrap" style="position:relative;z-index:2">
+    <span class="mark">Bürgerinitiative · Frankfurt am Main · Deutschherrnufer</span>
     <h1>SCHWIMMEN<br>AM <span class="b">MAIN</span></h1>
-    <p class="lead" style="margin-top:22px">Frankfurt hatte einmal <b>29 Flussbäder</b>. Das größte Flussbad Deutschlands stand am Nizza. Heute steht am Ufer ein <span class="krit">Badeverbot seit 1953</span></p>
-    <p class="big" style="margin-top:26px;max-width:900px">Wir holen die alten Bilder zurück — <span class="waterword">projiziert an die Wand am Main</span> — und fordern: macht diesen Fluss wieder zum Gemeingut.</p>
-    <div class="row" style="margin-top:30px">
+    <p class="lead" style="margin-top:20px">Frankfurt hatte einmal <b>29 Flussbäder</b>. Das größte Flussbad Deutschlands stand am Nizza. Heute steht am Ufer ein <span class="krit">Badeverbot seit 1953</span></p>
+    <p class="big" style="margin-top:24px;max-width:900px">Wir holen die alten Bilder zurück — <span class="waterword">projiziert an die Wand am Main</span> — und fordern: macht diesen Fluss wieder zum Gemeingut.</p>
+    <div class="row" style="margin-top:28px">
       <a href="#mit" class="btn">✊ Jetzt unterschreiben</a>
-      <a href="#aktion" class="btn water">Was wir tun ↓</a>
+      <a href="#aktion" class="btn alt">Was wir tun ↓</a>
     </div>
   </div>
 </header>
 
-<!-- 01b Manifest -->
 <section id="vision">
   <div class="wrap">
     <span class="tag">01 — Die Vision</span>
     <div class="cols">
       <div>
-        <h2 style="font-size:44px">Ein Fluss ist kein<br><span class="spray">Verbotsschild.</span></h2>
-        <div class="hr-spray"></div>
-        <p>Am Deutschherrnufer — der östlichen Fortsetzung des Museumsufers — lag über ein Jahrhundert lang Badekultur. Männer, Frauen, Kinder, Arbeiterfamilien: alle sprangen in den Main. Es war Urlaub mitten in der Stadt, für alle bezahlbar.</p>
-        <p>Wir sind eine Handvoll neuer und alter Frankfurter Bürgerinnen und Bürger. Wir wollen die Stadt an diese Lebensqualität erinnern — und daran, dass sie zurückholbar ist. Nicht als Nostalgie, sondern als Auftrag.</p>
-        <p class="big" style="font-size:26px">Macht Frankfurt wieder schwimmen.</p>
+        <h2 style="font-size:42px">Ein Fluss ist kein<br><span class="spray">Verbotsschild.</span></h2>
+        <div class="hr"></div>
+        <p>Am Deutschherrnufer — der östlichen Fortsetzung des Museumsufers — lag über ein Jahrhundert lang Badekultur. Männer, Frauen, Kinder, Arbeiterfamilien: alle sprangen in den Main. Urlaub mitten in der Stadt, für alle bezahlbar.</p>
+        <p>Wir sind eine Handvoll neuer und alter Frankfurter Bürgerinnen und Bürger. Wir wollen die Stadt an diese Lebensqualität erinnern — und daran, dass sie zurückholbar ist.</p>
+        <p class="big" style="font-size:24px">Macht Frankfurt wieder schwimmen.</p>
       </div>
       <div>
         <div class="card"><span class="num">29</span><h3>Flussbäder</h3><p>gab es in den 1910er-Jahren am Main. Frankfurt badete in seinem Fluss.</p></div>
         <div class="card" style="margin-top:16px"><span class="num">1898</span><h3>Größtes Flussbad Deutschlands</h3><p>Die Mosler'sche Badeanstalt am Nizza — Schwimmen, Tennis, Turnen, Restauration.</p></div>
-        <div class="card" style="margin-top:16px;border-color:var(--red)"><span class="num" style="color:var(--red)">1953</span><h3 style="color:var(--red)">Badeverbot</h3><p>Seither ist der Main zum Durchfliessen da, nicht zum Leben.</p></div>
+        <div class="card" style="margin-top:16px;border-color:var(--danger)"><span class="num" style="color:var(--danger)">1953</span><h3 style="color:var(--danger)">Badeverbot</h3><p>Seither ist der Main zum Durchfliessen da, nicht zum Leben.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 02 BEAMER & AKTION -->
-<section id="aktion" style="background:#070d0e">
+<!-- 02 BEAMER -->
+<section id="aktion">
   <div class="wrap">
     <span class="tag">02 — Der Beamer &amp; die Aktion</span>
-    <h2 style="font-size:46px">Wir <span class="spray">beamen</span> die Geschichte zurück<br>an die Wand.</h2>
-    <div class="hr-spray"></div>
-    <div class="cols" style="margin-top:20px">
+    <h2 style="font-size:44px">Wir <span class="spray">beamen</span> die Geschichte zurück an die Wand.</h2>
+    <div class="hr"></div>
+    <div class="cols" style="margin-top:18px">
       <div>
-        <p>Nach Einbruch der Dunkelheit projizieren wir historische Fotos der Frankfurter Flussbäder — groß, leuchtend, unübersehbar — an die <b>Seitenwand Wasserweg 8–10</b>, bespielt vom <b>Parkplatz Wasserweg 12–14</b>. Direkt um die Ecke vom Deutschherrnufer, an einem historischen Ort am Main.</p>
+        <p>Nach Einbruch der Dunkelheit projizieren wir historische Fotos der Frankfurter Flussbäder — groß, leuchtend, unübersehbar — an die <b>Seitenwand Wasserweg 8–10</b>, bespielt vom <b>Parkplatz Wasserweg 12–14</b>. Direkt um die Ecke vom Deutschherrnufer.</p>
         <ul class="hit">
           <li><b>Ort:</b> Wand Wasserweg 8–10 · Projektion vom Parkplatz WW 12–14</li>
           <li><b>Zeit:</b> nach Sonnenuntergang, wetterabhängig, angekündigt</li>
@@ -154,10 +203,10 @@ ul.hit li::before{content:"//";position:absolute;left:0;color:var(--acid);font-f
         </ul>
       </div>
       <div>
-        <h3 style="color:var(--acid);font-size:26px">Packliste</h3>
+        <h3 style="color:var(--accent);font-size:24px">Packliste</h3>
         <ul class="hit">
           <li>Lichtstarker Beamer (Fassade bei Nacht: ~6.000–10.000 ANSI-Lumen)</li>
-          <li>Laptop mit Foto-Loop · Verlängerungskabel · Powerbank/Strom</li>
+          <li>Laptop mit Foto-Loop · Verlängerungskabel · Strom/Powerbank</li>
           <li>Stativ/Kiste, Gaffer-Tape, Regenplane</li>
           <li>Ein paar Leute, die es ernst meinen</li>
         </ul>
@@ -167,119 +216,102 @@ ul.hit li::before{content:"//";position:absolute;left:0;color:var(--acid);font-f
   </div>
 </section>
 
-<!-- 03 DIE LAGE -->
+<!-- 03 LAGE -->
 <section id="lage">
   <div class="wrap">
     <span class="tag">03 — Die Lage</span>
-    <h2 style="font-size:46px">Was hält den Main <span class="redword">dreckig?</span></h2>
-    <div class="hr-spray"></div>
-    <div class="cols3" style="margin-top:16px">
-      <div class="card"><h3>Mischkanalisation</h3><p>Abwasser und Regen fliessen in einem Rohr. Bei Starkregen entlasten rund <b>90 Überläufe und Regenbecken</b> das Netz — und leiten nur mechanisch gereinigtes Mischwasser in den Fluss.</p></div>
+    <h2 style="font-size:44px">Was hält den Main <span class="redword">dreckig?</span></h2>
+    <div class="hr"></div>
+    <div class="cols3" style="margin-top:14px">
+      <div class="card"><h3>Mischkanalisation</h3><p>Abwasser und Regen in einem Rohr. Bei Starkregen entlasten rund <b>90 Überläufe und Regenbecken</b> das Netz — und leiten nur mechanisch gereinigtes Mischwasser in den Fluss.</p></div>
       <div class="card"><h3>Keime über Grenzwert</h3><p><b>E. coli</b> und <b>intestinale Enterokokken</b> überschreiten laut Messreihen (1996–2023) regelmässig die EU-Badegewässer-Werte.</p></div>
-      <div class="card"><h3>Sicht &amp; Sicherheit</h3><p>Trübes Wasser, Berufsschifffahrt, Strömung. Rettung wird schwer — deshalb auch das pauschale Verbot.</p></div>
+      <div class="card"><h3>Sicht &amp; Sicherheit</h3><p>Trübes Wasser, Berufsschifffahrt, Strömung. Rettung wird schwer — daher auch das pauschale Verbot.</p></div>
     </div>
-    <h2 style="font-size:46px;margin-top:44px">Was muss <span class="spray">passieren?</span></h2>
-    <div class="hr-spray"></div>
-    <ul class="hit" style="font-size:21px">
-      <li><b>Mischwasser-Überläufe drastisch senken:</b> mehr Speicher, Trennsysteme, Schwammstadt-Prinzip (Entsiegeln, Versickern).</li>
+    <h2 style="font-size:44px;margin-top:40px">Was muss <span class="spray">passieren?</span></h2>
+    <div class="hr"></div>
+    <ul class="hit" style="font-size:20px">
+      <li><b>Mischwasser-Überläufe drastisch senken:</b> mehr Speicher, Trennsysteme, Schwammstadt-Prinzip.</li>
       <li><b>4. Reinigungsstufe</b> in den Kläranlagen (Spurenstoffe, Keimreduktion).</li>
-      <li><b>Ein sauberer Badeabschnitt</b> nach dem Vorbild <b>Flussbad Berlin</b>: natürliche Filter-/Reinigungsanlage in einem abgetrennten Bereich.</li>
-      <li><b>Echtzeit-Monitoring</b> der Wasserqualität + Ausweisung als offizielles <b>EU-Badegewässer</b>.</li>
+      <li><b>Ein sauberer Badeabschnitt</b> nach dem Vorbild <b>Flussbad Berlin</b>: natürliche Filter-/Reinigungsanlage.</li>
+      <li><b>Echtzeit-Monitoring</b> + Ausweisung als offizielles <b>EU-Badegewässer</b>.</li>
       <li><b>Sichere Ein- und Ausstiege</b>, Aufsicht, klare Regeln — statt eines pauschalen Verbots.</li>
     </ul>
-    <div class="card" style="margin-top:26px;border-color:var(--acid)">
-      <h3 style="color:var(--acid);font-size:28px">Der Appell an die Politik</h3>
-      <p class="big" style="font-size:24px">Baut grüne, lokale Gemeingüter, die funktionieren.</p>
+    <div class="card" style="margin-top:24px;border-color:var(--accent)">
+      <h3 style="color:var(--accent);font-size:26px">Der Appell an die Politik</h3>
+      <p class="big" style="font-size:22px">Baut grüne, lokale Gemeingüter, die funktionieren.</p>
       <p>Statt gigantischer, global gedachter Prestigeprojekte — schlecht gemacht, mit repressiven Verboten und absurden Kosten. Ein sauberer Fluss zum Schwimmen ist konkret, sichtbar, gerecht und bezahlbar. Fangt hier an. Am Main.</p>
     </div>
   </div>
 </section>
 
-<!-- 04 FOTO-PORTFOLIO -->
-<section id="fotos" style="background:#080f10">
+<!-- 04 FOTOS -->
+<section id="fotos">
   <div class="wrap">
     <span class="tag">04 — Das Archiv, das wir beamen</span>
-    <h2 style="font-size:46px">Bilder einer Stadt,<br>die <span class="waterword">baden ging.</span></h2>
-    <p style="max-width:760px">Diese Motive projizieren wir. <span class="scribble">Platzhalter — echte Archivscans (Institut für Stadtgeschichte Frankfurt) hier einsetzen.</span></p>
+    <h2 style="font-size:44px">Bilder einer Stadt, die <span class="waterword">baden ging.</span></h2>
+    <p style="max-width:760px">Echte historische Aufnahmen rund um das Nizza — den Ort des grössten Flussbads. <span class="scribble">Quelle: Wikimedia Commons (gemeinfrei/Alter).</span></p>
     <div class="plates" id="plates"></div>
   </div>
 </section>
 
-<!-- 05 WAND-RENDERING -->
+<!-- 05 WAND -->
 <section id="wand">
   <div class="wrap">
     <span class="tag">05 — Die Wand, gebeamt</span>
-    <h2 style="font-size:46px">So sieht es aus,<br>wenn der <span class="spray">Main leuchtet.</span></h2>
-    <div class="hr-spray"></div>
+    <h2 style="font-size:44px">So sieht es aus, wenn der <span class="spray">Main leuchtet.</span></h2>
+    <div class="hr"></div>
     <div class="wallbox" style="margin-top:14px">
-      <svg viewBox="0 0 1120 560" width="100%" role="img" aria-label="Rendering der nächtlichen Projektion an Wasserweg 8-10">
+      <svg viewBox="0 0 1120 560" width="100%" role="img" aria-label="Rendering der Projektion an Wasserweg 8-10">
         <defs>
           <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1418"/><stop offset="1" stop-color="#05090a"/></linearGradient>
           <linearGradient id="river" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a2b2a"/><stop offset="1" stop-color="#03100f"/></linearGradient>
-          <radialGradient id="cone" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#f6e7c2" stop-opacity=".9"/><stop offset="1" stop-color="#f6e7c2" stop-opacity="0"/></radialGradient>
-          <linearGradient id="proj" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9cf9c"/><stop offset="1" stop-color="#8a6d3b"/></linearGradient>
+          <radialGradient id="cone" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#f6e7c2" stop-opacity=".85"/><stop offset="1" stop-color="#f6e7c2" stop-opacity="0"/></radialGradient>
         </defs>
         <rect width="1120" height="560" fill="url(#sky)"/>
-        <!-- Sterne -->
-        <g fill="#cfe" opacity=".5"><circle cx="120" cy="60" r="1.4"/><circle cx="300" cy="40" r="1"/><circle cx="520" cy="70" r="1.2"/><circle cx="900" cy="50" r="1.3"/><circle cx="1040" cy="90" r="1"/></g>
-        <!-- Wand / Gebäude Wasserweg 8-10 -->
-        <rect x="120" y="40" width="470" height="380" fill="#12191b"/>
-        <rect x="120" y="40" width="470" height="380" fill="none" stroke="#1e2a2b" stroke-width="2"/>
-        <!-- Lichtkegel vom Beamer -->
-        <polygon points="900,470 590,90 590,410" fill="url(#cone)" opacity=".55"/>
-        <!-- Projiziertes Foto -->
-        <g transform="translate(180,90)">
-          <rect width="360" height="250" fill="url(#proj)" opacity=".92"/>
-          <rect width="360" height="250" fill="none" stroke="#f6e7c2" stroke-opacity=".5"/>
-          <!-- angedeutete Badeszene -->
-          <path d="M0,180 Q90,150 180,180 T360,180 L360,250 L0,250 Z" fill="#6b5327" opacity=".6"/>
-          <g fill="#3a2f14" opacity=".8"><circle cx="70" cy="150" r="10"/><circle cx="150" cy="140" r="9"/><circle cx="250" cy="155" r="10"/><rect x="40" y="60" width="90" height="8"/><rect x="180" y="50" width="120" height="8"/></g>
-          <text x="180" y="40" text-anchor="middle" font-family="Anton" font-size="26" fill="#3a2f14" opacity=".85">FLUSSBAD NIZZA</text>
-        </g>
-        <!-- Parole -->
-        <text x="180" y="372" font-family="Anton" font-size="30" fill="#c6ff2e">MACHT FRANKFURT WIEDER SCHWIMMEN</text>
-        <!-- QR an der Wand -->
-        <g transform="translate(470,300)"><rect x="-8" y="-8" width="116" height="116" fill="#f7f5ef"/><image href="assets/qr.svg" x="0" y="0" width="100" height="100"/></g>
-        <!-- Beamer auf Parkplatz -->
-        <rect x="880" y="452" width="60" height="26" rx="3" fill="#1c2426" stroke="#2b3a38"/>
-        <circle cx="898" cy="465" r="6" fill="#f6e7c2"/>
-        <text x="910" y="500" text-anchor="middle" font-family="Special Elite" font-size="12" fill="#7f8c8a">Beamer · Parkplatz WW 12–14</text>
-        <!-- Main -->
+        <g fill="#cfe" opacity=".45"><circle cx="120" cy="60" r="1.4"/><circle cx="300" cy="40" r="1"/><circle cx="520" cy="70" r="1.2"/><circle cx="900" cy="50" r="1.3"/></g>
+        <rect x="120" y="40" width="470" height="380" fill="#12191b" stroke="#1e2a2b" stroke-width="2"/>
+        <polygon points="900,470 590,90 590,410" fill="url(#cone)" opacity=".5"/>
+        <clipPath id="pc"><rect x="180" y="90" width="360" height="250"/></clipPath>
+        <image href="assets/img/nizza_1900.jpg" x="180" y="90" width="360" height="250" preserveAspectRatio="xMidYMid slice" clip-path="url(#pc)" opacity=".92" style="filter:sepia(.4)"/>
+        <rect x="180" y="90" width="360" height="250" fill="none" stroke="#f6e7c2" stroke-opacity=".5"/>
+        <text x="180" y="372" font-family="Anton" font-size="28" fill="#c6ff2e">MACHT FRANKFURT WIEDER SCHWIMMEN</text>
+        <g transform="translate(470,300)"><rect x="-8" y="-8" width="116" height="116" fill="#fff"/><image href="assets/qr.svg" x="0" y="0" width="100" height="100"/></g>
+        <rect x="880" y="452" width="60" height="26" rx="3" fill="#1c2426" stroke="#2b3a38"/><circle cx="898" cy="465" r="6" fill="#f6e7c2"/>
+        <text x="910" y="500" text-anchor="middle" font-family="monospace" font-size="12" fill="#7f8c8a">Beamer · Parkplatz WW 12–14</text>
         <rect x="0" y="420" width="1120" height="140" fill="url(#river)"/>
-        <!-- Spiegelung -->
-        <g transform="translate(180,430) scale(1,-1)" opacity=".18"><rect width="360" height="120" fill="url(#proj)"/></g>
+        <g transform="translate(180,430) scale(1,-1)" opacity=".16" clip-path="url(#pc)"><image href="assets/img/nizza_1900.jpg" x="0" y="0" width="360" height="120" preserveAspectRatio="xMidYMid slice"/></g>
         <path d="M0,470 C200,486 400,458 620,474 C820,488 1000,462 1120,476" stroke="#0aa79f" stroke-width="2" fill="none" opacity=".5"/>
-        <text x="150" y="446" font-family="Special Elite" font-size="12" fill="#5f6c6a">Main — östlich vom Museumsufer</text>
+        <text x="150" y="446" font-family="monospace" font-size="12" fill="#5f6c6a">Main — östlich vom Museumsufer</text>
       </svg>
     </div>
     <p class="scribble" style="margin-top:12px">→ Schematisches Rendering. Reale Fassadenmasse &amp; Foto beim Ortstermin final.</p>
   </div>
 </section>
 
-<!-- 06 WEBSITE / MITMACHEN -->
+<!-- 06 MITMACHEN -->
 <section id="mit">
   <div class="wrap">
     <span class="tag">06 — Mitmachen · die Website hinter dem QR</span>
     <div class="cols">
       <div>
-        <h2 style="font-size:48px">Scan.<br><span class="spray">Unterschreib.</span><br>Kommentier.</h2>
-        <div class="hr-spray"></div>
+        <h2 style="font-size:46px">Scan.<br><span class="spray">Unterschreib.</span><br>Kommentier.</h2>
+        <div class="hr"></div>
         <p>Du hast den QR an der Wand gescannt? Dann bist du hier richtig. Unterschreibe die Petition — <b>anonym reicht</b> — und hinterlasse einen Kommentar: Wo hast du im Main geschwommen? Was wünschst du dir?</p>
-        <div class="row" style="margin-top:10px">
+        <div class="row" style="margin-top:8px">
           <div><span class="counter" id="count">0</span><div class="mark">Unterschriften</div></div>
           <div class="qrbox"><img src="assets/qr.svg" alt="QR zur Petition"></div>
         </div>
-        <p class="mark" id="backend-note" style="margin-top:14px;color:#7f8c8a">Prototyp — Unterschriften &amp; Kommentare werden derzeit lokal auf deinem Gerät gespeichert (Testbetrieb für Freundinnen &amp; Freunde). Für die geteilte, öffentliche Zählung schalten wir ein Backend frei.</p>
+        <p style="margin-top:12px"><span class="status" id="status">Verbindung…</span></p>
       </div>
       <div>
         <div class="mockchrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp; naxosforall.github.io/schwimmen-am-main</div>
-        <div class="form" style="border-radius:0 0 6px 6px">
+        <div class="form" style="border-radius:0 0 var(--radius) var(--radius)">
           <label class="mark">Name (optional — leer = anonym)</label>
           <input id="pname" maxlength="60" placeholder="anonym">
           <label class="mark">Kommentar</label>
           <textarea id="pcomment" maxlength="400" placeholder="Ich will wieder im Main schwimmen, weil…"></textarea>
-          <div class="row"><label class="mark"><input type="checkbox" id="panon" checked style="width:auto"> anonym unterschreiben</label></div>
-          <div class="row" style="margin-top:10px"><button class="btn" onclick="sign()">✊ Ich unterschreibe</button></div>
+          <label class="mark" style="display:block;margin:6px 0"><input type="checkbox" id="panon" checked style="width:auto"> anonym unterschreiben</label>
+          <div class="row"><button class="btn" id="signbtn" onclick="sign()">✊ Ich unterschreibe</button></div>
           <div class="wall" id="wall"></div>
         </div>
       </div>
@@ -289,59 +321,98 @@ ul.hit li::before{content:"//";position:absolute;left:0;color:var(--acid);font-f
 
 <footer class="foot">
   <div class="wrap">
-    <div class="hr-spray"></div>
+    <div class="hr"></div>
     <p><b>SCHWIMMEN AM MAIN</b> — eine parteiunabhängige Bürgerinitiative neuer und alter Frankfurter·innen. Kein kommerzielles Projekt. Teile den QR, hänge dich rein, bring einen Beamer mit.</p>
-    <p class="mark">Historische Quellen u. a.: Institut für Stadtgeschichte / Wikipedia „Liste der Schwimmbäder in Frankfurt am Main“ · Journal Frankfurt „Als Frankfurt planschen lernte“ · Stadtentwässerung Frankfurt · Stadt Frankfurt „Baden &amp; Schwimmen in Main und Nidda“.</p>
+    <p class="mark">Bild- &amp; Inhaltsquellen u. a.: Wikimedia Commons · Wikipedia „Liste der Schwimmbäder in Frankfurt am Main“ · Journal Frankfurt „Als Frankfurt planschen lernte“ · Stadtentwässerung Frankfurt · Stadt Frankfurt „Baden &amp; Schwimmen in Main und Nidda“.</p>
     <p class="scribble">#schwimmenammain</p>
   </div>
 </footer>
 
 <script>
-// ---- Foto-Plates (Archiv) ----
-const PLATES=[
- {yr:"1898",cap:"Mosler'sche Badeanstalt am Nizza — größtes Flussbad Deutschlands",r:"-2deg"},
- {yr:"1910er",cap:"29 Flussbäder am Main — die Stadt badet im Fluss",r:"1.5deg"},
- {yr:"ab 1912",cap:"Das Damen-Flussbad — erstmals eigene Anstalten",r:"-1deg"},
- {yr:"1920er",cap:"Volks- & Städtische Flussbäder — Urlaub für alle",r:"1deg"},
- {yr:"1930er",cap:"Sprungturm & Bootsstege am Deutschherrnufer",r:"-1.5deg"},
- {yr:"1953",cap:"Ende einer Ära — das Badeverbot",r:"2deg",red:true},
-];
-const motif=(red)=>`<svg viewBox='0 0 200 150'><rect width='200' height='150' fill='none'/>
-  <path d='M0,110 Q50,95 100,110 T200,110 L200,150 L0,150 Z' fill='#6b5327' opacity='.55'/>
-  <g fill='${red?'#7a2e12':'#3a2f14'}' opacity='.8'><circle cx='55' cy='95' r='7'/><circle cx='95' cy='88' r='6'/><circle cx='140' cy='97' r='7'/>
-  <rect x='30' y='40' width='60' height='6'/><rect x='110' y='34' width='70' height='6'/><path d='M150,46 l10,-18 l6,3 l-10,18 z'/></g>
-  <line x1='0' y1='72' x2='200' y2='72' stroke='#8a6d3b' stroke-width='1' opacity='.4'/></svg>`;
-document.getElementById('plates').innerHTML=PLATES.map(p=>`
- <figure class="plate" style="--r:${p.r}">
-   <div class="img"><div class="stamp">ARCHIV</div>${motif(p.red)}</div>
-   <div class="yr" ${p.red?'style="color:#7a2e12"':''}>${p.yr}</div>
-   <div class="cap">${p.cap}</div>
- </figure>`).join('');
+// ===== THEME-SWITCH =====
+(function(){
+  const q=new URLSearchParams(location.search).get('theme');
+  const valid=['guerilla','linux','nax','minimal'];
+  const saved=(valid.includes(q)?q:null)||localStorage.getItem('sam_theme')||'guerilla';
+  setTheme(saved);
+  document.getElementById('themeswitch').addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b)return; setTheme(b.dataset.t);
+  });
+  function setTheme(t){
+    document.documentElement.setAttribute('data-theme',t);
+    localStorage.setItem('sam_theme',t);
+    document.querySelectorAll('#themeswitch button').forEach(x=>x.setAttribute('aria-pressed', x.dataset.t===t));
+  }
+  window.setTheme=setTheme;
+})();
 
-// ---- Petition (localStorage-Prototyp) ----
-const KEY="sam_signatures_v1";
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
-function save(a){localStorage.setItem(KEY,JSON.stringify(a))}
+// ===== FOTO-PLATES (echte Bilder) =====
+const PLATES=[
+ {img:"assets/img/nizza_1900.jpg",yr:"um 1900",cap:"Das Nizza am Main — Ort des grössten Flussbads",pr:"-1.5deg"},
+ {img:"assets/img/grindbrunnen_nizza_1909.jpg",yr:"1909",cap:"Grindbrunnen am Nizza",pr:"1deg"},
+ {img:"assets/img/beckmann_nizza_1921.jpg",yr:"1921",cap:"Max Beckmann — „Das Nizza in Frankfurt“",pr:"-1deg"},
+ {img:"assets/img/gartenlaube_1880.jpg",yr:"1880",cap:"Die Gartenlaube — Badeleben am Fluss",pr:"1.2deg"},
+ {img:"assets/img/frankfurt_1900_1930.jpg",yr:"1900–1930",cap:"Frankfurt am Main, historische Aufnahme",pr:"-1.2deg"},
+ {text:true,yr:"1953",cap:"Ende einer Ära — das Badeverbot bis heute.",pr:"1.5deg"},
+];
+document.getElementById('plates').innerHTML=PLATES.map(p=>p.text?
+  `<figure class="plate text" style="--pr:${p.pr}"><div class="yr">${p.yr}</div><div class="cap" style="font-size:16px;margin-top:10px">${p.cap}</div></figure>`:
+  `<figure class="plate" style="--pr:${p.pr}"><img src="${p.img}" alt="${p.cap}" loading="lazy"><div class="yr">${p.yr}</div><div class="cap">${p.cap}</div></figure>`
+).join('');
+
+// ===== PETITION — geteiltes Backend (kvdb) + lokaler Fallback =====
+const KVDB="https://kvdb.io/8ptLQqLeXSMQyaXzM5nhja/petition";
+const LKEY="sam_signatures_v2";
+let shared=false, sigs=[];
 function esc(s){return (s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}
+function localGet(){try{return JSON.parse(localStorage.getItem(LKEY))||[]}catch(e){return[]}}
+function localSet(a){localStorage.setItem(LKEY,JSON.stringify(a))}
+function setStatus(){
+  const el=document.getElementById('status');
+  if(shared){el.textContent="● geteilt · live";el.className="status live";}
+  else{el.textContent="○ lokal (Testmodus — Backend wird aktiviert)";el.className="status";}
+}
 function render(){
-  const a=load();
-  document.getElementById('count').textContent=a.length.toLocaleString('de-DE'); // ehrlich: nur echte (lokale) Unterschriften
-  document.getElementById('wall').innerHTML=a.slice().reverse().map(s=>`
-    <div class="sig"><div class="who">✊ ${esc(s.name||'anonym')} · ${s.date}</div>${s.comment?('<div>'+esc(s.comment)+'</div>'):''}</div>`).join('')
-    || '<p class="mark">Noch keine lokalen Unterschriften — mach den Anfang.</p>';
+  document.getElementById('count').textContent=sigs.length.toLocaleString('de-DE');
+  document.getElementById('wall').innerHTML = sigs.slice(-60).reverse().map(s=>
+    `<div class="sig"><div class="who">✊ ${esc(s.name||'anonym')} · ${s.date||''}</div>${s.comment?('<div>'+esc(s.comment)+'</div>'):''}</div>`
+  ).join('') || '<p class="mark">Noch keine Unterschriften — mach den Anfang.</p>';
 }
-function sign(){
+async function loadSigs(){
+  try{
+    const r=await fetch(KVDB,{cache:'no-store'});
+    if(r.ok){ sigs=await r.json(); if(!Array.isArray(sigs))sigs=[]; shared=true; }
+    else if(r.status===404){ sigs=localGet(); shared=false; } // Backend erreichbar, aber noch nicht freigeschaltet
+    else throw 0;
+  }catch(e){ sigs=localGet(); shared=false; }
+  setStatus(); render();
+}
+async function sign(){
+  const btn=document.getElementById('signbtn'); btn.disabled=true;
   const anon=document.getElementById('panon').checked;
-  const name=anon?'':document.getElementById('pname').value.trim();
-  const comment=document.getElementById('pcomment').value.trim();
-  const a=load();
-  a.push({name:name||'anonym', comment, date:new Date().toLocaleDateString('de-DE')});
-  save(a);
+  const entry={ name: anon?'': (document.getElementById('pname').value.trim()||''),
+                comment: document.getElementById('pcomment').value.trim(),
+                date: new Date().toLocaleDateString('de-DE') };
+  entry.name=entry.name||'anonym';
+  // optimistisch anzeigen
+  sigs.push(entry); render();
   document.getElementById('pcomment').value=''; document.getElementById('pname').value='';
-  render();
-  const c=document.getElementById('count'); c.style.transform='scale(1.15)'; setTimeout(()=>c.style.transform='',180);
+  const c=document.getElementById('count'); c.style.transition='transform .18s'; c.style.transform='scale(1.15)'; setTimeout(()=>c.style.transform='',200);
+  // versuchen, geteilt zu speichern (read-modify-write)
+  try{
+    let cur=[]; const r=await fetch(KVDB,{cache:'no-store'});
+    if(r.ok) cur=await r.json(); else if(r.status!==404) throw 0;
+    if(!Array.isArray(cur))cur=[];
+    cur.push(entry);
+    const put=await fetch(KVDB,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(cur)});
+    if(!put.ok) throw 0;
+    sigs=cur; shared=true;
+  }catch(e){
+    shared=false; localSet(sigs); // lokal sichern
+  }
+  setStatus(); render(); btn.disabled=false;
 }
-render();
+loadSigs();
 </script>
 </body>
 </html>
