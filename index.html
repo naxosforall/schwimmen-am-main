@@ -272,14 +272,14 @@ ul.hit li::before{content:"//";position:absolute;left:0;color:var(--accent);font
         <rect x="120" y="40" width="470" height="380" fill="#12191b" stroke="#1e2a2b" stroke-width="2"/>
         <polygon points="900,470 590,90 590,410" fill="url(#cone)" opacity=".5"/>
         <clipPath id="pc"><rect x="180" y="90" width="360" height="250"/></clipPath>
-        <image href="assets/img/nizza_1900.jpg" x="180" y="90" width="360" height="250" preserveAspectRatio="xMidYMid slice" clip-path="url(#pc)" opacity=".92" style="filter:sepia(.4)"/>
+        <image href="assets/img/familienbad_main.jpg" x="180" y="90" width="360" height="250" preserveAspectRatio="xMidYMid slice" clip-path="url(#pc)" opacity=".92" style="filter:sepia(.4)"/>
         <rect x="180" y="90" width="360" height="250" fill="none" stroke="#f6e7c2" stroke-opacity=".5"/>
         <text x="180" y="372" font-family="Anton" font-size="28" fill="#c6ff2e">MACHT FRANKFURT WIEDER SCHWIMMEN</text>
         <g transform="translate(470,300)"><rect x="-8" y="-8" width="116" height="116" fill="#fff"/><image href="assets/qr.svg" x="0" y="0" width="100" height="100"/></g>
         <rect x="880" y="452" width="60" height="26" rx="3" fill="#1c2426" stroke="#2b3a38"/><circle cx="898" cy="465" r="6" fill="#f6e7c2"/>
         <text x="910" y="500" text-anchor="middle" font-family="monospace" font-size="12" fill="#7f8c8a">Beamer · Parkplatz WW 12–14</text>
         <rect x="0" y="420" width="1120" height="140" fill="url(#river)"/>
-        <g transform="translate(180,430) scale(1,-1)" opacity=".16" clip-path="url(#pc)"><image href="assets/img/nizza_1900.jpg" x="0" y="0" width="360" height="120" preserveAspectRatio="xMidYMid slice"/></g>
+        <g transform="translate(180,430) scale(1,-1)" opacity=".16" clip-path="url(#pc)"><image href="assets/img/familienbad_main.jpg" x="0" y="0" width="360" height="120" preserveAspectRatio="xMidYMid slice"/></g>
         <path d="M0,470 C200,486 400,458 620,474 C820,488 1000,462 1120,476" stroke="#0aa79f" stroke-width="2" fill="none" opacity=".5"/>
         <text x="150" y="446" font-family="monospace" font-size="12" fill="#5f6c6a">Main — östlich vom Museumsufer</text>
       </svg>
@@ -308,6 +308,7 @@ ul.hit li::before{content:"//";position:absolute;left:0;color:var(--accent);font
         <div class="form" style="border-radius:0 0 var(--radius) var(--radius)">
           <label class="mark">Name (optional — leer = anonym)</label>
           <input id="pname" maxlength="60" placeholder="anonym">
+          <input id="hp_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" placeholder="Website">
           <label class="mark">Kommentar</label>
           <textarea id="pcomment" maxlength="400" placeholder="Ich will wieder im Main schwimmen, weil…"></textarea>
           <label class="mark" style="display:block;margin:6px 0"><input type="checkbox" id="panon" checked style="width:auto"> anonym unterschreiben</label>
@@ -348,11 +349,11 @@ ul.hit li::before{content:"//";position:absolute;left:0;color:var(--accent);font
 
 // ===== FOTO-PLATES (echte Bilder) =====
 const PLATES=[
- {img:"assets/img/nizza_1900.jpg",yr:"um 1900",cap:"Das Nizza am Main — Ort des grössten Flussbads",pr:"-1.5deg"},
- {img:"assets/img/grindbrunnen_nizza_1909.jpg",yr:"1909",cap:"Grindbrunnen am Nizza",pr:"1deg"},
- {img:"assets/img/beckmann_nizza_1921.jpg",yr:"1921",cap:"Max Beckmann — „Das Nizza in Frankfurt“",pr:"-1deg"},
- {img:"assets/img/gartenlaube_1880.jpg",yr:"1880",cap:"Die Gartenlaube — Badeleben am Fluss",pr:"1.2deg"},
- {img:"assets/img/frankfurt_1900_1930.jpg",yr:"1900–1930",cap:"Frankfurt am Main, historische Aufnahme",pr:"-1.2deg"},
+ {img:"assets/img/familienbad_main.jpg",yr:"Flussbad",cap:"Familienbad am Main — gebadet mitten in der Stadt",pr:"-1.5deg"},
+ {img:"assets/img/badestrand_main.jpg",yr:"Badestrand",cap:"Sandstrand am Main — Blick auf Dom &amp; Eiserner Steg",pr:"1deg"},
+ {img:"assets/img/nizza_leben.jpg",yr:"Am Nizza",cap:"Palmen, Café, Fluss — die Bademeile am Nizza",pr:"-1deg"},
+ {img:"assets/img/main_promenade.jpg",yr:"Am Ufer",cap:"Leben am Main — der Fluss als Treffpunkt",pr:"1.2deg"},
+ {img:"assets/img/volksbad.jpg",yr:"Volksbad",cap:"Volles Bad — Frankfurt badete für alle",pr:"-1.2deg"},
  {text:true,yr:"1953",cap:"Ende einer Ära — das Badeverbot bis heute.",pr:"1.5deg"},
 ];
 document.getElementById('plates').innerHTML=PLATES.map(p=>p.text?
@@ -360,56 +361,74 @@ document.getElementById('plates').innerHTML=PLATES.map(p=>p.text?
   `<figure class="plate" style="--pr:${p.pr}"><img src="${p.img}" alt="${p.cap}" loading="lazy"><div class="yr">${p.yr}</div><div class="cap">${p.cap}</div></figure>`
 ).join('');
 
-// ===== PETITION — geteiltes Backend (kvdb) + lokaler Fallback =====
-const KVDB="https://kvdb.io/8ptLQqLeXSMQyaXzM5nhja/petition";
-const LKEY="sam_signatures_v2";
-let shared=false, sigs=[];
-function esc(s){return (s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}
-function localGet(){try{return JSON.parse(localStorage.getItem(LKEY))||[]}catch(e){return[]}}
-function localSet(a){localStorage.setItem(LKEY,JSON.stringify(a))}
+// ===== PETITION — gehärtet: geschütztes Apps-Script-Backend > kvdb > lokal =====
+const CFG={
+  // Nach Deploy die Apps-Script-/exec-URL hier eintragen -> geschützter Server-Backend-Modus
+  // (Server hält den einzigen Schreibzugriff; Client kann nur DATEN posten, nichts löschen/auslesen).
+  appsUrl:"",
+  kvdb:"https://kvdb.io/8ptLQqLeXSMQyaXzM5nhja/petition"
+};
+const LKEY="sam_signatures_v2", RLKEY="sam_lastsign";
+let mode="local", sigs=[];
+const esc=s=>(s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+const clean=(s,max)=>String(s==null?'':s).replace(/[\u0000-\u001f\u007f]+/g,'').replace(/\s+/g,' ').trim().slice(0,max);
+const localGet=()=>{try{return JSON.parse(localStorage.getItem(LKEY))||[]}catch(e){return[]}};
+const localSet=a=>localStorage.setItem(LKEY,JSON.stringify(a));
 function setStatus(){
   const el=document.getElementById('status');
-  if(shared){el.textContent="● geteilt · live";el.className="status live";}
-  else{el.textContent="○ lokal (Testmodus — Backend wird aktiviert)";el.className="status";}
+  if(mode==="apps"){el.textContent="● geschützt · geteilt · live";el.className="status live";}
+  else if(mode==="kvdb"){el.textContent="● geteilt · live";el.className="status live";}
+  else{el.textContent="○ lokal (Testmodus — geschütztes Backend noch nicht aktiv)";el.className="status";}
 }
 function render(){
   document.getElementById('count').textContent=sigs.length.toLocaleString('de-DE');
-  document.getElementById('wall').innerHTML = sigs.slice(-60).reverse().map(s=>
-    `<div class="sig"><div class="who">✊ ${esc(s.name||'anonym')} · ${s.date||''}</div>${s.comment?('<div>'+esc(s.comment)+'</div>'):''}</div>`
+  document.getElementById('wall').innerHTML = sigs.slice(-80).reverse().map(s=>
+    `<div class="sig"><div class="who">✊ ${esc(s.name||'anonym')} · ${esc(s.date||'')}</div>${s.comment?('<div>'+esc(s.comment)+'</div>'):''}</div>`
   ).join('') || '<p class="mark">Noch keine Unterschriften — mach den Anfang.</p>';
 }
 async function loadSigs(){
-  try{
-    const r=await fetch(KVDB,{cache:'no-store'});
-    if(r.ok){ sigs=await r.json(); if(!Array.isArray(sigs))sigs=[]; shared=true; }
-    else if(r.status===404){ sigs=localGet(); shared=false; } // Backend erreichbar, aber noch nicht freigeschaltet
-    else throw 0;
-  }catch(e){ sigs=localGet(); shared=false; }
-  setStatus(); render();
+  // 1) geschütztes Apps-Script
+  if(CFG.appsUrl){
+    try{ const r=await fetch(CFG.appsUrl,{cache:'no-store'});
+      if(r.ok){ const d=await r.json(); sigs=Array.isArray(d)?d:(d.signatures||[]); mode="apps"; setStatus(); render(); return; } }catch(e){}
+  }
+  // 2) kvdb
+  try{ const r=await fetch(CFG.kvdb,{cache:'no-store'});
+    if(r.ok){ sigs=await r.json(); if(!Array.isArray(sigs))sigs=[]; mode="kvdb"; setStatus(); render(); return; }
+    if(r.status!==404) throw 0; }catch(e){}
+  // 3) lokal
+  sigs=localGet(); mode="local"; setStatus(); render();
 }
 async function sign(){
+  // Honeypot: von Bots ausgefüllt -> still ignorieren (Erfolg vortäuschen)
+  if(document.getElementById('hp_website').value){ document.getElementById('pcomment').value=''; return; }
+  // Rate-Limit: max. 1 Unterschrift / 45s pro Gerät
+  const last=+localStorage.getItem(RLKEY)||0;
+  if(Date.now()-last < 45000){ document.getElementById('status').textContent="○ bitte kurz warten (Schutz gegen Mehrfach-Eintrag)"; return; }
   const btn=document.getElementById('signbtn'); btn.disabled=true;
   const anon=document.getElementById('panon').checked;
-  const entry={ name: anon?'': (document.getElementById('pname').value.trim()||''),
-                comment: document.getElementById('pcomment').value.trim(),
+  const entry={ name: (anon?'':clean(document.getElementById('pname').value,60))||'anonym',
+                comment: clean(document.getElementById('pcomment').value,400),
                 date: new Date().toLocaleDateString('de-DE') };
-  entry.name=entry.name||'anonym';
-  // optimistisch anzeigen
   sigs.push(entry); render();
   document.getElementById('pcomment').value=''; document.getElementById('pname').value='';
   const c=document.getElementById('count'); c.style.transition='transform .18s'; c.style.transform='scale(1.15)'; setTimeout(()=>c.style.transform='',200);
-  // versuchen, geteilt zu speichern (read-modify-write)
-  try{
-    let cur=[]; const r=await fetch(KVDB,{cache:'no-store'});
-    if(r.ok) cur=await r.json(); else if(r.status!==404) throw 0;
-    if(!Array.isArray(cur))cur=[];
-    cur.push(entry);
-    const put=await fetch(KVDB,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(cur)});
-    if(!put.ok) throw 0;
-    sigs=cur; shared=true;
-  }catch(e){
-    shared=false; localSet(sigs); // lokal sichern
+  let ok=false;
+  // A) geschütztes Apps-Script (nur DATEN posten; einfacher text/plain-Request = kein CORS-Preflight)
+  if(CFG.appsUrl){
+    try{ const r=await fetch(CFG.appsUrl,{method:"POST",body:JSON.stringify({name:entry.name,comment:entry.comment,hp:""})});
+      if(r.ok){ mode="apps"; ok=true; } }catch(e){}
   }
+  // B) kvdb (read-modify-write) — nur wenn kein Apps-Script
+  if(!ok && !CFG.appsUrl){
+    try{ let cur=[]; const r=await fetch(CFG.kvdb,{cache:'no-store'});
+      if(r.ok) cur=await r.json(); else if(r.status!==404) throw 0;
+      if(!Array.isArray(cur))cur=[]; cur.push(entry);
+      const put=await fetch(CFG.kvdb,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(cur)});
+      if(put.ok){ sigs=cur; mode="kvdb"; ok=true; } }catch(e){}
+  }
+  if(!ok){ mode="local"; localSet(sigs); }        // C) lokal sichern
+  localStorage.setItem(RLKEY, Date.now());
   setStatus(); render(); btn.disabled=false;
 }
 loadSigs();
