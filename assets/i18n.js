@@ -65,7 +65,9 @@ de:{nav1:'Vision',nav2:'Beamer',nav3:'Die Lage',nav4:'Archiv',nav5:'Die Wand',na
  hcap1:'Am Nizza — aus der Uferterrasse wird ein Flussbad.',
  hcap2:'Westhafen — das Hafenbecken wird zum Schwimmbecken.',
  hcap3:'Unterm Eisernen Steg — baden mit Skyline im Abendlicht.',
- hcap4:'Vor der EZB, am Deutschherrnufer — Bahnen ziehen im Main.'},
+ hcap4:'Vor der EZB, am Deutschherrnufer — Bahnen ziehen im Main.',
+ hcap5:'Flussbad Deutschherrnufer — abends, genau hier, wo wir beamen.',
+ hcap6:'Uferpromenade — „Flussbad Main" mit Blick auf Dom und Skyline.'},
 
 en:{nav1:'Vision',nav2:'Projector',nav3:'The Situation',nav4:'Archive',nav5:'The Wall',nav6:'Take part',
  kicker:'Citizens’ initiative · Frankfurt am Main · Deutschherrnufer',
@@ -116,7 +118,9 @@ en:{nav1:'Vision',nav2:'Projector',nav3:'The Situation',nav4:'Archive',nav5:'The
  hcap1:'At the Nizza — the riverside terrace becomes a river bath.',
  hcap2:'Westhafen — the harbour basin becomes a swimming pool.',
  hcap3:'Under the Eiserner Steg — bathing with the skyline at dusk.',
- hcap4:'In front of the ECB, at the Deutschherrnufer — swimming laps in the Main.'},
+ hcap4:'In front of the ECB, at the Deutschherrnufer — swimming laps in the Main.',
+ hcap5:'Flussbad Deutschherrnufer — at dusk, exactly where we project.',
+ hcap6:'Riverside promenade — “Flussbad Main” with the cathedral and skyline.'},
 
 fr:{nav1:'Vision',nav2:'Projecteur',nav3:'La situation',nav4:'Archives',nav5:'Le mur',nav6:'Participer',
  kicker:'Initiative citoyenne · Francfort-sur-le-Main · Deutschherrnufer',
